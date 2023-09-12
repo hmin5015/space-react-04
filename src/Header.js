@@ -1,6 +1,7 @@
 import React from 'react'
+import { FaLaptop, FaTableAlt, FaMobileAlt } from 'react-icons/fa';
 
-const Header = ({ title }) => {
+const Header = ({ title, width }) => {
   return (
     <header className="Header">
       <h1>{title}</h1>
