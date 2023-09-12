@@ -54,8 +54,8 @@ function App() {
     e.preventDefault();
 
     const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
-    const dateTime = format(new Date(), 'MMMM dd, yyyy pp');
-    const newPost = { id, title: postTitle, dateTime, body: postBody };
+    const datetime = format(new Date(), 'MMMM dd, yyyy pp');
+    const newPost = { id, title: postTitle, datetime, body: postBody };
 
     try {
       const response = await api.post('/posts', newPost);
@@ -70,8 +70,8 @@ function App() {
   }
 
   const handleEdit = async (id) => {
-    const dateTime = format(new Date(), 'MMMM dd, yyyy pp');
-    const updatedPost = { id, title: editTitle, dateTime, body: editBody };
+    const datetime = format(new Date(), 'MMMM dd, yyyy pp');
+    const updatedPost = { id, title: editTitle, datetime, body: editBody };
     try {
       const response = await api.put(`/posts/${id}`, updatedPost);
       setPosts(posts.map(post => post.id === id ? { ...response.data } : post));
