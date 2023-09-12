@@ -1,16 +1,16 @@
 import React from 'react'
-import { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import DataContext from './context/DataContext';
+import api from './api/posts';
+import { format } from 'date-fns';
 
-const EditPost = ({
-  posts,
-  handleEdit,
-  editTitle,
-  setEditTitle,
-  editBody,
-  setEditBody
-}) => {
+const EditPost = () => {
+  const [editTitle, setEditTitle] = useState('');
+  const [editBody, setEditBody] = useState('');
+  const { posts, setPosts } = useContext(DataContext);
   const { id } = useParams();
+  const navigate = useNavigate();
   const post = posts.find(post => (post.id).toString() === id);
 
   useEffect(() => {
@@ -20,11 +20,25 @@ const EditPost = ({
     }
   }, [post, setEditTitle, setEditBody])
 
+  const handleEdit = async (id) => {
+    const datetime = format(new Date(), 'MMMM dd, yyyy pp');
+    const updatedPost = { id, title: editTitle, datetime, body: editBody };
+    try {
+      const response = await api.put(`/posts/${id}`, updatedPost);
+      setPosts(posts.map(post => post.id === id ? { ...response.data } : post));
+      setEditTitle('');
+      setEditBody('');
+      navigate('/');
+    } catch (error) {
+      console.log(`Error: ${error.message}`);
+    }
+  }
+
   return (
     <main className="NewPost">
       {editTitle &&
         <>
-          <h2>New Post</h2>
+          <h2>Edit Post</h2>
           <form className="newPostForm" onSubmit={(e) => e.preventDefault()}>
             <label htmlFor="postTitle">Title:</label>
             <input
