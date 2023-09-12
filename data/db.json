@@ -39,8 +39,14 @@
     {
       "id": 7,
       "title": "2023.09.11",
-      "datetime": "September 11, 2023 11:08:13 PM",
-      "body": "1. React.JS\n2. Job Search"
+      "datetime": "September 12, 2023 8:00:46 AM",
+      "body": "React.JS"
+    },
+    {
+      "id": 8,
+      "title": "2023.09.12",
+      "datetime": "September 12, 2023 8:01:31 AM",
+      "body": "I will study React.JS and Next.JS."
     }
   ]
 }
